@@ -1,25 +1,24 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
+import { listen } from '@tauri-apps/api/event';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 import "./App.css";
+import Input from "./components/Input/Input";
+import Main from "./components/Main/Main";
 
 function App() {
-  const [port, setPort] = useState('')
-  const [dataFromBack, setDataFromBack] = useState<string[]>([])
-  const start = (e: FormEvent) => {
-    e.preventDefault()
-    invoke('transfer_data', { port }).then(res => setDataFromBack(prev => [...prev, res as string]))
-    setPort('')
-  }
-
   return (
-    <div className="container">
-      <h1>Welcome to 3D Receiver!</h1>
-      <form id="create-form">
-        <input type="text" id="port" placeholder="Введите порт" value={port} onChange={e => setPort(e.target.value)} />
-        <button onClick={(e) => start(e)} type="submit" className="create-button">Create file</button>
-      </form>
-      <p>{dataFromBack}</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Input />} />
+        <Route path="/main" element={<Main />} />
+      </Routes>
+    </Router>
   );
 }
 

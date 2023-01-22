@@ -19,22 +19,22 @@ fn init_process(port: String, window: Window) {
   std::thread::spawn(move || {
     println!("{port}");
     let mut path = home_dir()
-    .expect("Ошибка доступа к домашней директории");
-  path.push("logs.txt");
-  let mut file = OpenOptions::new()
-  .create(true)
-  .append(true)
-  .open(path)
-  .expect("Ошибка при открытии файла");
+      .expect("Ошибка доступа к домашней директории");
+    path.push("logs.txt");
+    let mut file = OpenOptions::new()
+      .create(true)
+      .append(true)
+      .open(path)
+      .expect("Ошибка при открытии файла");
 
     let mut serial_port = serialport::new(port, 9600)
-    .timeout(Duration::from_millis(1000))
-    .open()
-    .expect("Ошибка при открытии Serial Port");
+      .timeout(Duration::from_millis(1000))
+      .open()
+      .expect("Ошибка при открытии Serial Port");
 
     
-  let mut port = BufReader::new(serial_port);
-  let mut my_str = String::new();
+    let mut port = BufReader::new(serial_port);
+    let mut my_str = String::new();
 
     loop {
       my_str.clear();

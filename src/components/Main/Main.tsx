@@ -1,10 +1,14 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import values from './mockData';
 import styles from './Main.module.css'
 import Plot from 'react-plotly.js';
+import { DataFromBackContext } from '../shared/DataContext';
+import { DataContext } from '../types/@types.data.js';
 
 const Main = () => {
     const [mockData, setMockData] = useState(values[0]);
+
+    const { data } = useContext(DataFromBackContext) as DataContext
 
     const count = useRef(0);
     useLayoutEffect(() => {

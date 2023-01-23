@@ -4,14 +4,19 @@ import { listen } from '@tauri-apps/api/event';
 import styles from "./Input.module.css";
 import { DataContext, IDataFromBack } from "../types/@types.data.js";
 import { DataFromBackContext } from "../shared/DataContext.js";
+import { useNavigate } from "react-router-dom";
 
 const Input = () => {
+    const navigate = useNavigate()
     const [port, setPort] = useState('')
 
     const { addData } = useContext(DataFromBackContext) as DataContext
 
     const renderData = (data: IDataFromBack) => {
-        addData(data)
+        if (data) {
+            addData(data)
+            navigate('/main')
+        }
     }
 
     const start = (e: FormEvent) => {

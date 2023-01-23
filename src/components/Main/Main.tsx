@@ -47,7 +47,9 @@ const Main = () => {
 
     return (
         <div className={styles.container}>
+            <div className={styles.menu}></div>
             <Plot
+                className={styles.plot}
                 data={[
                     {
                         type: 'volume',

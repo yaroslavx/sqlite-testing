@@ -3,9 +3,24 @@ import styles from './Main.module.css'
 import { IconPlayFill, IconStopFill } from '../../assets/icons/PlayStop';
 import PlotComponent from '../Plot/PlotComponent';
 
+// Need to improve input system
+
 const Main = () => {
-    const [rate, setRate] = useState('')
+    const [rate, setRate] = useState<string | null>(null)
     const [play, setPlay] = useState(true)
+
+    const handleInput = (value: string) => {
+        setRate(value)
+    }
+
+    const handleSendRate = (key: string) => {
+        if (key == 'Enter' && rate != null) {
+            // send rate to back
+            if (typeof Number(rate) === 'number' && Number(rate) >= 1) {
+                console.log(`${Math.floor(Number(rate))}`);
+            }
+        }
+    }
 
     return (
         <div className={styles.container}>
@@ -19,7 +34,7 @@ const Main = () => {
                 <div className={styles.rate}>
                     <p>Частота опроса</p>
                     <div>
-                        <input value={rate} onChange={e => setRate(e.target.value)} />
+                        <input type='number' value={rate || ''} onChange={e => handleInput(e.target.value)} onKeyDown={e => handleSendRate(e.key)} />
                         <p>мс</p>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ struct Payload {
 }
 
 #[tauri::command]
-fn init_process(port: String, window: Window) {
+fn init_process(port: String, rate: i32, window: Window) {
   std::thread::spawn(move || {
     println!("{port}");
     let mut path = home_dir()
@@ -42,7 +42,7 @@ fn init_process(port: String, window: Window) {
       //       .write_all("<".as_bytes()).expect("Write failed!");
       // std::thread::sleep(Duration::from_millis(1500));
 
-      port.read_line(&mut my_str).unwrap();
+      port.read_line(&mut my_str);
       window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
       writeln!(file, "{my_str}").expect("Ошибка при записи файла");
     }

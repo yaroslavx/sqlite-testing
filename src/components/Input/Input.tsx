@@ -21,6 +21,7 @@ const Input = () => {
 
     const start = (e: FormEvent) => {
         e.preventDefault()
+        if (port === '') return
         invoke('init_process', { port: port })
         listen('data', (data) => renderData(data.payload as IDataFromBack))
         setPort('')
@@ -30,7 +31,7 @@ const Input = () => {
             <h1>Welcome to 3D Receiver!</h1>
             <form id="create-form" className={styles.form}>
                 <input type="text" id="port" placeholder="Введите порт" value={port} onChange={e => setPort(e.target.value)} />
-                <button onClick={(e) => start(e)} type="submit" className={styles["create-button"]}>Create file</button>
+                <button onClick={start} type="submit" className={styles["create-button"]}>Create file</button>
             </form>
         </div>
     );

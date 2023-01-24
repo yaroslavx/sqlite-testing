@@ -11,3 +11,12 @@
   display: flex;
   gap: 10px;
 }
+
+.form > input {
+  background-color: #f1f1f1;
+}
+
+.form > button {
+  background-color: #000;
+  color: #fff;
+}

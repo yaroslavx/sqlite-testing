@@ -1,9 +1,9 @@
 import Plot from 'react-plotly.js';
 import values from './mockData';
-import { memo, useContext, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styles from './PlotComponent.module.css'
 import { DataFromBackContext } from '../shared/DataContext';
-import { DataContext } from '../types/@types.data';
+import { DataContext, IDataFromBack } from '../types/@types.data';
 
 type Props = {
     play: boolean
@@ -13,6 +13,13 @@ const PlotComponent = ({ play }: Props) => {
     const [mockData, setMockData] = useState(values[0]);
 
     const { data } = useContext(DataFromBackContext) as DataContext
+
+    const [snapshotData, setSnapshotData] = useState<IDataFromBack>()
+
+    useEffect(() => {
+        if (!play) setSnapshotData(data[data.length - 1])
+    }, [play])
+
 
     const count = useRef(0);
     useLayoutEffect(() => {
@@ -100,6 +107,7 @@ const PlotComponent = ({ play }: Props) => {
                             z: { show: true, fill: 1.0 },
                         },
                         value: play ? mockData : values[0],
+                        // value: play ? data[data.length - 1] : snapshotData,
                         x: [
                             1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2,
                             3, 4, 5,

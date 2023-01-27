@@ -14,8 +14,18 @@ struct Payload {
   data: String,
 }
 
+static mut rate_from_front: u64 = 1000;
+
 #[tauri::command]
-fn init_process(port: String, rate: i32, window: Window) {
+fn change_rate(rate: u64) {
+  unsafe {
+    rate_from_front = rate;
+    println!("{rate_from_front}")
+  }
+}
+
+#[tauri::command]
+fn init_process(port: String, window: Window) {
   std::thread::spawn(move || {
     println!("{port}");
     let mut path = home_dir()
@@ -38,9 +48,9 @@ fn init_process(port: String, rate: i32, window: Window) {
 
     loop {
       my_str.clear();
-      // port.get_mut()
-      //       .write_all("<".as_bytes()).expect("Write failed!");
-      // std::thread::sleep(Duration::from_millis(1500));
+      port.get_mut()
+            .write_all("<".as_bytes()).expect("Write failed!");
+      unsafe{std::thread::sleep(Duration::from_millis(rate_from_front))};
 
       port.read_line(&mut my_str);
       window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
@@ -51,7 +61,7 @@ fn init_process(port: String, rate: i32, window: Window) {
 
 fn main() {
     tauri::Builder::default()
-      .invoke_handler(tauri::generate_handler![init_process])
+      .invoke_handler(tauri::generate_handler![init_process, change_rate])
       .run(tauri::generate_context!())
       .expect("Ошибка во время исполнения программы");
   }

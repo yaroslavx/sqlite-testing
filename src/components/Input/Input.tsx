@@ -13,17 +13,16 @@ const Input = () => {
     const { addData } = useContext(DataFromBackContext) as DataContext
 
     const renderData = (data: IDataFromBack) => {
-        if (data) {
-            addData(data)
-            navigate('/main')
-        }
+        addData(data)
+        navigate('/main')
+        console.log("renderData", data)
     }
 
     const start = (e: FormEvent) => {
         e.preventDefault()
         if (port === '') return
         invoke('init_process', { port: port })
-        listen('data', (data) => renderData(data.payload as IDataFromBack))
+        listen('data', (data) => renderData({ data: data.payload as string, createAt: Date.now() }))
         setPort('')
     }
     return (

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './Main.module.css'
 import { IconPlayFill, IconStopFill } from '../../assets/icons/PlayStop';
 import PlotComponent from '../Plot/PlotComponent';
+import { invoke } from '@tauri-apps/api';
 
 // Need to improve input system
 
@@ -18,6 +19,7 @@ const Main = () => {
             // send rate to back
             if (typeof Number(rate) === 'number' && Number(rate) >= 1) {
                 console.log(`${Math.floor(Number(rate))}`);
+                invoke('change_rate', { rate: Math.floor(Number(rate)) })
             }
         }
     }

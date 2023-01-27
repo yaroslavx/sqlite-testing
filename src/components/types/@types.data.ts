@@ -1,5 +1,6 @@
 export interface IDataFromBack {
-  data: string | undefined;
+  data: string;
+  createAt: number;
 }
 
 export type DataContext = {

@@ -16,7 +16,7 @@ function App() {
     <DataProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Input />} />
           <Route path="/main" element={<Main />} />
         </Routes>
       </Router>

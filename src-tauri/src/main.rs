@@ -50,9 +50,9 @@ fn init_process(port: String, window: Window) {
       my_str.clear();
       port.get_mut()
             .write_all("<".as_bytes()).expect("Write failed!");
-      unsafe{std::thread::sleep(Duration::from_millis(rate_from_front))};
-
+      
       port.read_line(&mut my_str);
+      unsafe{std::thread::sleep(Duration::from_millis(rate_from_front))};
       window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
       writeln!(file, "{my_str}").expect("Ошибка при записи файла");
     }

@@ -53,6 +53,7 @@ const PlotComponent = ({ play }: Props) => {
                 },
             },
         },
+
     }
 
     return (
@@ -67,9 +68,9 @@ const PlotComponent = ({ play }: Props) => {
                             facenormalsepsilon: 0,
                         },
                         colorbar: {
-                            tick0: 0,
                             dtick: 100,
-                            nticks: 10,
+                            len: 1,
+                            title: 'Величина эл. поля'
                         },
                         colorscale: [
                             [0, 'rgb(49,54,149)'],

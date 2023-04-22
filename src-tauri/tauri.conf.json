@@ -55,10 +55,12 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 800,
+        "width": 1250,
         "resizable": true,
-        "title": "3D Receiver",
-        "width": 800
+        "minHeight": 700,
+        "minWidth": 1000,
+        "title": "3D Receiver"
       }
     ]
   }

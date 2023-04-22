@@ -16,7 +16,8 @@ struct Payload {
 
 static mut rate_from_front: u64 = 1000;
 
-#[tauri::command]
+
+#[tauri::command(rename_all = "snake_case")]
 fn change_rate(rate: u64) {
   unsafe {
     rate_from_front = rate;
@@ -24,7 +25,7 @@ fn change_rate(rate: u64) {
   }
 }
 
-#[tauri::command]
+#[tauri::command(rename_all = "snake_case")]
 fn init_process(port: String, window: Window) {
   std::thread::spawn(move || {
     println!("{port}");
@@ -40,9 +41,8 @@ fn init_process(port: String, window: Window) {
     let serial_port = serialport::new(port, 9600)
       .timeout(Duration::from_millis(1000))
       .open()
-      .expect("Ошибка при открытии Serial Port");
-
-    
+      .expect("Ошибка при открытии Serial Port".into());
+  
     let mut port = BufReader::new(serial_port);
     let mut my_str = String::new();
 

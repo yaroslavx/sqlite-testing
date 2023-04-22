@@ -29,14 +29,14 @@ fn change_rate(rate: u64) {
 fn init_process(port: String, window: Window) {
   std::thread::spawn(move || {
     println!("{port}");
-    // let mut path = home_dir()
-    //   .expect("Ошибка доступа к домашней директории");
-    // path.push("logs.txt");
-    // let mut file = OpenOptions::new()
-    //   .create(true)
-    //   .append(true)
-    //   .open(path)
-    //   .expect("Ошибка при открытии файла");
+    let mut path = home_dir()
+      .expect("Ошибка доступа к домашней директории");
+    path.push("logs.txt");
+    let mut file = OpenOptions::new()
+      .create(true)
+      .append(true)
+      .open(path)
+      .expect("Ошибка при открытии файла");
 
     let serial_port = serialport::new(port, 9600)
       .timeout(Duration::from_millis(1000))
@@ -54,7 +54,7 @@ fn init_process(port: String, window: Window) {
       port.read_line(&mut my_str);
       unsafe{std::thread::sleep(Duration::from_millis(rate_from_front))};
       window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
-      // writeln!(file, "{my_str}").expect("Ошибка при записи файла");
+      writeln!(file, "{my_str}").expect("Ошибка при записи файла");
     }
   });
 }

@@ -1,10 +1,11 @@
-import { FC, PropsWithChildren, createContext, useState } from "react";
-import { DataContext, IDataFromBack } from "../types/@types.data.js";
+import { FC, PropsWithChildren, createContext, memo, useMemo, useState } from "react";
+import { TDataContext, IDataFromBack } from "../types/@types.data.js";
 
-export const DataFromBackContext = createContext<DataContext | null>(null)
+export const DataFromBackContext = createContext<TDataContext | null>(null)
 
-const DataProvider: FC<PropsWithChildren> = ({ children }) => {
+export const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     const [data, setData] = useState<IDataFromBack[]>([])
+    // необходимо писать в хранилище, например, json-server
     const addData = (data: IDataFromBack) => {
         setData(prev => [...prev, data])
     }
@@ -15,5 +16,3 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         </DataFromBackContext.Provider>
     )
 }
-
-export default DataProvider

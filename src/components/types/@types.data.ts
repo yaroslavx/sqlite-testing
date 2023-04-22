@@ -1,9 +1,11 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface IDataFromBack {
   data: string;
-  createAt: number;
+  createdAt: number;
 }
 
-export type DataContext = {
+export type TDataContext = {
   data: IDataFromBack[];
   addData: (data: IDataFromBack) => void;
 };

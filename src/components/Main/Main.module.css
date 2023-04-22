@@ -5,8 +5,22 @@
 }
 
 .menu {
-  width: 200px;
+  width: 250px;
+  padding-top: 20px;
   background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playbutton {
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  width: 180px;
 }
 
 .playstop {
@@ -14,6 +28,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
+  margin-bottom: 20px;
 }
 
 .icon {
@@ -37,13 +52,17 @@
   margin: 10px;
 }
 
-.rate > div {
+.rate>div {
   display: flex;
   align-items: center;
   margin-top: 10px;
 }
 
-.rate > div > input {
+.rate>div>input {
   width: 150px;
   margin-right: 10px;
+}
+
+.plot {
+  width: 100%;
 }

@@ -6,6 +6,8 @@ import { TDataContext, IDataFromBack } from "../types/@types.data.js";
 import { DataFromBackContext } from "../shared/DataContext.js";
 import { useNavigate } from "react-router-dom";
 import values from '../Plot/mockData'
+import { BaseDirectory, writeTextFile } from "@tauri-apps/api/fs";
+
 
 const Input = () => {
     const navigate = useNavigate()
@@ -15,13 +17,15 @@ const Input = () => {
 
     const { addData } = useContext(DataFromBackContext) as TDataContext
 
-    const renderData = (data: IDataFromBack) => {
-        addData(data)
+    console.log('render input')
+
+    const renderData = (dt: IDataFromBack) => {
+        addData(dt)
     }
 
     const count = useRef(0)
     const renderTestData = (obj: IDataFromBack) => {
-        addData(obj)
+        addData(obj);
     }
 
     const navigated = useRef(false)
@@ -36,27 +40,27 @@ const Input = () => {
         //     if (data.payload) {
         //         renderData({ data: data.payload as string, createdAt: Date.now() })
         //         if (!navigated.current) {
-        //     navigate('/main')
-        //     navigated.current = true
-        // }
+        //             navigate('/main')
+        //             navigated.current = true
+        //         }
         //     }
         // })
+
+
+        // для тестирования
+        listen('data', () => {
+            if (values[count.current]) {
+                renderTestData({ data: values[count.current++], createdAt: Date.now() })
+            } else {
+                renderTestData({ data: values[1], createdAt: Date.now() })
+            }
+            if (!navigated.current) {
+                navigate('/main')
+                navigated.current = true
+            }
+            setLoading(false)
+        })
     }
-
-
-    // для тестирования
-    listen('data', () => {
-        if (values[count.current]) {
-            renderTestData({ data: values[count.current++], createdAt: Date.now() })
-        } else {
-            renderTestData({ data: values[1], createdAt: Date.now() })
-        }
-        if (!navigated.current) {
-            navigate('/main')
-            navigated.current = true
-        }
-        setLoading(false)
-    })
 
     return (
         <div className={styles.container}>

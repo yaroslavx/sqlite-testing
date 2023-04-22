@@ -1,17 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Main.module.css'
 import { IconPlayFill, IconStopFill } from '../../assets/icons/PlayStop';
 import PlotComponent from '../Plot/PlotComponent';
 import { invoke } from '@tauri-apps/api';
 import { DataFromBackContext } from '../shared/DataContext';
 import { TDataContext } from '../types/@types.data';
-
-// Need to improve input system
+import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 
 const Main = () => {
     const [rate, setRate] = useState<string | null>(null)
     const [play, setPlay] = useState(true)
     const [snapshotData, setSnapshotData] = useState({ data: `100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100`, createdAt: Date.now() })
+
+    console.log('render main')
 
 
     const handleInput = (value: string) => {
@@ -34,6 +35,9 @@ const Main = () => {
         setSnapshotData(data[data.length - 1])
     }
 
+    useEffect(() => {
+        writeTextFile('logs.json', JSON.stringify(data), { dir: BaseDirectory.Desktop })
+    }, [data])
     return (
         <div className={styles.container}>
             <div className={styles.menu}>

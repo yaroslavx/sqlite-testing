@@ -32,6 +32,8 @@ const layout = {
 
 
 const PlotComponent = ({ data }: Props) => {
+    console.log('render plot')
+
     return (
         <>
             {data && <>

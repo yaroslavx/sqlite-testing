@@ -38,6 +38,7 @@ const Main = () => {
     useEffect(() => {
         writeTextFile('logs.json', JSON.stringify(data), { dir: BaseDirectory.Desktop })
     }, [data])
+
     return (
         <div className={styles.container}>
             <div className={styles.menu}>

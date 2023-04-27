@@ -6,22 +6,22 @@
 use std::fs::OpenOptions;
 use std::io::{Write, BufReader, BufRead};
 use std::time::Duration;
-use home::home_dir;
 use tauri::{Window};
+use std::time::{SystemTime, UNIX_EPOCH};
+extern crate dirs;
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
   data: String,
 }
 
-static mut rate_from_front: u64 = 1000;
-
+static mut RATE_FROM_FRONT: u64 = 1000;
 
 #[tauri::command(rename_all = "snake_case")]
 fn change_rate(rate: u64) {
   unsafe {
-    rate_from_front = rate;
-    println!("{rate_from_front}")
+    RATE_FROM_FRONT = rate;
+    println!("{RATE_FROM_FRONT}")
   }
 }
 
@@ -29,7 +29,7 @@ fn change_rate(rate: u64) {
 fn init_process(port: String, window: Window) {
   std::thread::spawn(move || {
     println!("{port}");
-    let mut path = home_dir()
+    let mut path = dirs::desktop_dir()
       .expect("Ошибка доступа к домашней директории");
     path.push("logs.txt");
     let mut file = OpenOptions::new()
@@ -47,14 +47,16 @@ fn init_process(port: String, window: Window) {
     let mut my_str = String::new();
 
     loop {
+      let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
       my_str.clear();
       port.get_mut()
             .write_all("<".as_bytes()).expect("Write failed!");
-      
       port.read_line(&mut my_str);
-      unsafe{std::thread::sleep(Duration::from_millis(rate_from_front))};
-      window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
-      writeln!(file, "{my_str}").expect("Ошибка при записи файла");
+      unsafe{std::thread::sleep(Duration::from_millis(RATE_FROM_FRONT))};
+      if my_str != "" {
+        window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
+        writeln!(file, "createdAt: {:?},  data: {my_str}", now).expect("Ошибка при записи файла");
+      }
     }
   });
 }

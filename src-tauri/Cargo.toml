@@ -20,6 +20,7 @@ tauri = { version = "1.2", features = ["api-all"] }
 home = "0.5.3"
 log = "0.4"
 serialport = "4.2.0"
+dirs = "5.0.0"
 
 [features]
 # by default Tauri runs in production mode

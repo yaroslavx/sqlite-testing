@@ -19,14 +19,14 @@ const Input = () => {
 
     console.log('render input')
 
-    const renderData = (dt: IDataFromBack) => {
-        addData(dt)
+    const renderData = (data: string) => {
+        addData(data)
     }
 
     const count = useRef(0)
-    const renderTestData = (obj: IDataFromBack) => {
-        addData(obj);
-    }
+    // const renderTestData = (obj: IDataFromBack) => {
+    //     addData(obj);
+    // }
 
     const navigated = useRef(false)
     const start = (e: FormEvent) => {
@@ -35,31 +35,31 @@ const Input = () => {
         setLoading(true)
         invoke('init_process', { port: port })
         // для прода
-        // listen('data', (data) => {
-        //     console.log(data)
-        //     if (data.payload) {
-        //         renderData({ data: data.payload as string, createdAt: Date.now() })
-        //         if (!navigated.current) {
-        //             navigate('/main')
-        //             navigated.current = true
-        //         }
-        //     }
-        // })
+        listen('data', (data: IDataFromBack) => {
+            // console.log(data)
+            if (data.payload) {
+                renderData(data.payload.data)
+                if (!navigated.current) {
+                    navigate('/main')
+                    navigated.current = true
+                }
+            }
+        })
 
 
         // для тестирования
-        listen('data', () => {
-            if (values[count.current]) {
-                renderTestData({ data: values[count.current++], createdAt: Date.now() })
-            } else {
-                renderTestData({ data: values[1], createdAt: Date.now() })
-            }
-            if (!navigated.current) {
-                navigate('/main')
-                navigated.current = true
-            }
-            setLoading(false)
-        })
+        // listen('data', () => {
+        //     if (values[count.current]) {
+        //         renderTestData({ data: values[count.current++], createdAt: Date.now() })
+        //     } else {
+        //         renderTestData({ data: values[1], createdAt: Date.now() })
+        //     }
+        //     if (!navigated.current) {
+        //         navigate('/main')
+        //         navigated.current = true
+        //     }
+        //     setLoading(false)
+        // })
     }
 
     return (

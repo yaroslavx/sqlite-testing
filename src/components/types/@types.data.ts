@@ -1,11 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export interface IDataFromBack {
-  data: string;
-  createdAt: number;
+  event: string;
+  windowLabel: string;
+  payload: {
+    data: string;
+  };
+  id: number;
 }
 
 export type TDataContext = {
-  data: IDataFromBack[];
-  addData: (data: IDataFromBack) => void;
+  data: string[];
+  addData: (data: string) => void;
 };

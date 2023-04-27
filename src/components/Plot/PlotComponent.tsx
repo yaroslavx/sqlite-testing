@@ -33,10 +33,20 @@ const layout = {
 
 const PlotComponent = ({ data }: Props) => {
     console.log('render plot')
+    const plotData = data
+
+    if (data.length < 100) {
+        const diff = 100 - plotData.length
+        for (let i = 0; i < diff; i++) {
+            plotData.push(plotData.reduce((p, c) => p + c, 0) / plotData.length || 100)
+        }
+    }
+
+    console.log(plotData)
 
     return (
         <>
-            {data && <>
+            {plotData && <>
                 <Plot
                     data={[
                         {
@@ -85,7 +95,7 @@ const PlotComponent = ({ data }: Props) => {
                                 y: { show: true, fill: 1.0 },
                                 z: { show: true, fill: 1.0 },
                             },
-                            value: data,
+                            value: plotData,
                             x: [
                                 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2,
                                 3, 4, 5,

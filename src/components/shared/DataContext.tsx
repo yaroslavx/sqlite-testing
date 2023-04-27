@@ -5,10 +5,10 @@ import { TDataContext, IDataFromBack } from "../types/@types.data.js";
 export const DataFromBackContext = createContext<TDataContext | null>(null)
 
 export const DataProvider: FC<PropsWithChildren> = ({ children }) => {
-    const [data, setData] = useState<IDataFromBack[]>([])
+    const [data, setData] = useState<string[]>([])
     // необходимо писать в хранилище, например, json-server
-    const addData = (dt: IDataFromBack) => {
-        setData(prev => [...prev, dt])
+    const addData = (data: string) => {
+        setData(prev => [...prev, data])
     }
 
     return (

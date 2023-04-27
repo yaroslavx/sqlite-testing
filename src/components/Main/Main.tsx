@@ -5,12 +5,12 @@ import PlotComponent from '../Plot/PlotComponent';
 import { invoke } from '@tauri-apps/api';
 import { DataFromBackContext } from '../shared/DataContext';
 import { TDataContext } from '../types/@types.data';
-import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
+// import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
 
 const Main = () => {
     const [rate, setRate] = useState<string | null>(null)
     const [play, setPlay] = useState(true)
-    const [snapshotData, setSnapshotData] = useState({ data: `100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100`, createdAt: Date.now() })
+    const [snapshotData, setSnapshotData] = useState('100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100')
 
     console.log('render main')
 
@@ -35,9 +35,9 @@ const Main = () => {
         setSnapshotData(data[data.length - 1])
     }
 
-    useEffect(() => {
-        writeTextFile('logs.json', JSON.stringify(data), { dir: BaseDirectory.Desktop })
-    }, [data])
+    // useEffect(() => {
+    //     writeTextFile('logs.json', JSON.stringify(data), { dir: BaseDirectory.Desktop })
+    // }, [data])
 
     return (
         <div className={styles.container}>
@@ -62,7 +62,7 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            <PlotComponent data={(play && data[data.length - 1]) ? data[data.length - 1].data.split(' ').map(x => parseInt(x, 10)) : snapshotData.data.split(' ').map(x => parseInt(x, 10))} />
+            <PlotComponent data={(data[data.length - 1] && play) ? data[data.length - 1].split(' ').map(x => parseInt(x, 10)).filter(x => x) : snapshotData.split(' ').map(x => parseInt(x, 10))} />
         </div>
     );
 };

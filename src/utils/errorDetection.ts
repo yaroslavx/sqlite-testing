@@ -1,5 +1,9 @@
-export const detectErrorCoords = (arr: number[][][], diff: number) => {
-  const errorCoordsArr = [];
+export const detectErrorCoords = (
+  arr: number[][][] | null,
+  diff: number
+): string[] | null => {
+  if (!arr) return null;
+  const errorCoordsArr: string[] = [];
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
       for (let z = 0; z < arr[x][y].length; z++) {
@@ -23,7 +27,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
             arr[x][y][z] - (arr[x][y][z - 1] ? arr[x][y][z - 1] : arr[x][y][z])
           ) > diff
         ) {
-          errorCoordsArr.push([x, y, z]);
+          errorCoordsArr.push(`${x}, ${y}, ${z}`);
         } else if (x === 0) {
           if (y === 0) {
             if (z === 0) {
@@ -33,7 +37,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 2 точка
@@ -42,7 +46,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 1 грань
@@ -52,7 +56,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           } else if (y === arr[x].length - 1) {
@@ -63,7 +67,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 4 точка
@@ -72,7 +76,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 2 грань
@@ -82,7 +86,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           } else if (y > 0 && y < arr[x].length - 1) {
@@ -94,7 +98,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 4 грань
@@ -104,7 +108,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 1 поверхность
@@ -115,7 +119,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           }
@@ -128,7 +132,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 6 точка
@@ -137,7 +141,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 5 грань
@@ -147,7 +151,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           } else if (y === arr[x].length - 1) {
@@ -158,7 +162,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 8 точка
@@ -167,7 +171,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 6 грань
@@ -177,7 +181,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           } else if (y > 0 && y < arr[x].length - 1) {
@@ -189,7 +193,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 8 грань
@@ -199,7 +203,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 2 поверхность
@@ -210,7 +214,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           }
@@ -224,7 +228,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 10 грань
@@ -234,7 +238,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 3 поверхность
@@ -245,7 +249,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           }
@@ -259,7 +263,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z === arr[x][y].length - 1) {
               // 12 грань
@@ -269,7 +273,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 4 поверхность
@@ -280,7 +284,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           }
@@ -295,7 +299,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           }
@@ -310,7 +314,7 @@ export const detectErrorCoords = (arr: number[][][], diff: number) => {
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push([x, y, z]);
+                errorCoordsArr.push(`${x}, ${y}, ${z}`);
               }
             }
           }

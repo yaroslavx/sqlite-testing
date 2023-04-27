@@ -46,23 +46,6 @@
   color: #e0552e;
 }
 
-.rate {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.rate>div {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.rate>div>input {
-  width: 150px;
-  margin-right: 10px;
-}
-
 .plot {
   width: 100%;
 }

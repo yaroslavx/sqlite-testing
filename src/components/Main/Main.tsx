@@ -1,68 +1,77 @@
-import { useContext, useEffect, useState } from 'react';
-import styles from './Main.module.css'
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
+import './Main.css'
 import { IconPlayFill, IconStopFill } from '../../assets/icons/PlayStop';
-import PlotComponent from '../Plot/PlotComponent';
-import { invoke } from '@tauri-apps/api';
+import { PlotComponent } from '../Plot/PlotComponent';
 import { DataFromBackContext } from '../shared/DataContext';
 import { TDataContext } from '../types/@types.data';
-// import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs';
+import { arrTo3DArray } from '../../utils/arrayUtils';
+import { detectErrorCoords } from '../../utils/errorDetection';
+import { RateInput } from '../RateInput/RateInput';
+import { outOfBorders } from '../../utils/outOfBorders';
 
 const Main = () => {
-    const [rate, setRate] = useState<string | null>(null)
     const [play, setPlay] = useState(true)
-    const [snapshotData, setSnapshotData] = useState('100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100')
+    const errorDataRef = useRef<string[] | null>(null)
+    const outOfBordersRef = useRef<{ min: string[]; max: string[]; } | null>(null)
+    const [snapshotData, setSnapshotData] = useState<number[]>()
+    const [snapshotTime, setSnapshotTime] = useState(0)
 
     console.log('render main')
 
+    const { data, currentTime } = useContext(DataFromBackContext) as TDataContext
 
-    const handleInput = (value: string) => {
-        setRate(value)
-    }
-
-    const handleSendRate = (key: string) => {
-        if (key == 'Enter' && rate != null) {
-            // send rate to back
-            if (typeof Number(rate) === 'number' && Number(rate) >= 1) {
-                invoke('change_rate', { rate: Math.floor(Number(rate)) })
+    const plotData = data[data.length - 1].split(' ').map(x => parseInt(x, 10)).filter(x => x)
+    useLayoutEffect(() => {
+        if (plotData.length < 100) {
+            const diff = 100 - plotData.length
+            for (let i = 0; i < diff; i++) {
+                plotData.push(Math.floor(plotData.reduce((p, c) => p + c, 0) / plotData.length || 100))
             }
         }
-    }
+        if (plotData.length === 100) {
+            const ThreeDArr = arrTo3DArray(plotData)
+            errorDataRef.current = detectErrorCoords(ThreeDArr, 200)
+            outOfBordersRef.current = outOfBorders(ThreeDArr, 100, 700)
+        }
 
-    const { data } = useContext(DataFromBackContext) as TDataContext
+    }, [data, play])
+
 
     const handleStopPlaying = () => {
         setPlay(false)
-        setSnapshotData(data[data.length - 1])
+        setSnapshotData(plotData)
+        setSnapshotTime(currentTime)
     }
 
-    // useEffect(() => {
-    //     writeTextFile('logs.json', JSON.stringify(data), { dir: BaseDirectory.Desktop })
-    // }, [data])
-
     return (
-        <div className={styles.container}>
-            <div className={styles.menu}>
-                <div className={styles.playstop}>
+        <div className='container'>
+            <div className='menu'>
+                <div className='playstop'>
                     {play
-                        ? <div className={styles.playbutton}>
+                        ? <div className='playbutton'>
                             <span>Остановить</span>
-                            <IconStopFill onClick={handleStopPlaying} className={`${styles.icon} ${styles.stop}`} />
+                            <IconStopFill onClick={handleStopPlaying} className='icon stop' />
                         </div>
-                        : <div className={styles.playbutton}>
+                        : <div className='playbutton'>
                             <span>Продолжить</span>
-                            <IconPlayFill onClick={() => setPlay(true)} className={`${styles.icon} ${styles.play}`} />
+                            <IconPlayFill onClick={() => setPlay(true)} className='icon play' />
                         </div>
                     }
                 </div>
-                <div className={styles.rate}>
-                    <p>Частота опроса</p>
-                    <div>
-                        <input placeholder='1000' type='number' value={rate || ''} onChange={e => handleInput(e.target.value)} onKeyDown={e => handleSendRate(e.key)} />
-                        <p>мс</p>
+                <RateInput />
+                {play
+                    ? <div>
+                        {new Date(currentTime).toUTCString()}
                     </div>
-                </div>
+                    : <div>
+                        Текущее время – {new Date(currentTime).toUTCString()}
+                        Время паузы – {new Date(snapshotTime).toUTCString()}
+                    </div>
+                }
+                {errorDataRef.current && <div>{errorDataRef.current.toString()}</div>}
+                {outOfBordersRef.current && <div>{outOfBordersRef.current.min.toString()} {outOfBordersRef.current.max.toString()}</div>}
             </div>
-            <PlotComponent data={(data[data.length - 1] && play) ? data[data.length - 1].split(' ').map(x => parseInt(x, 10)).filter(x => x) : snapshotData.split(' ').map(x => parseInt(x, 10))} />
+            <PlotComponent data={(play) ? plotData : snapshotData} />
         </div>
     );
 };

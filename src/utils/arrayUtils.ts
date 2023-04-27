@@ -35,7 +35,8 @@ export const arr = [
 export const strToArr = (str: string) =>
   str.split(' ').map((x: string) => parseInt(x, 10));
 
-export const arrTo3DArray = (arr: number[]) => {
+export const arrTo3DArray = (arr: number[] | null): number[][][] | null => {
+  if (!arr) return null;
   const resArr: number[][][] = [
     [[], [], [], [], []],
     [[], [], [], [], []],

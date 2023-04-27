@@ -12,4 +12,6 @@ export interface IDataFromBack {
 export type TDataContext = {
   data: string[];
   addData: (data: string) => void;
+  currentTime: number;
+  setCurrentTime: Dispatch<SetStateAction<number>>;
 };

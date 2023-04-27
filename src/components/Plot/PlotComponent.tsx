@@ -1,8 +1,11 @@
 import Plot from 'react-plotly.js';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import { arrTo3DArray } from '../../utils/arrayUtils';
+import { DataFromBackContext } from '../shared/DataContext';
+import { TDataContext } from '../types/@types.data';
 
 type Props = {
-    data: number[]
+    data?: number[]
 }
 
 const layout = {
@@ -31,22 +34,14 @@ const layout = {
 }
 
 
-const PlotComponent = ({ data }: Props) => {
+export const PlotComponent = memo(({ data }: Props) => {
     console.log('render plot')
-    const plotData = data
 
-    if (data.length < 100) {
-        const diff = 100 - plotData.length
-        for (let i = 0; i < diff; i++) {
-            plotData.push(plotData.reduce((p, c) => p + c, 0) / plotData.length || 100)
-        }
-    }
-
-    console.log(plotData)
+    console.log(data)
 
     return (
         <>
-            {plotData && <>
+            {data && <>
                 <Plot
                     data={[
                         {
@@ -95,7 +90,7 @@ const PlotComponent = ({ data }: Props) => {
                                 y: { show: true, fill: 1.0 },
                                 z: { show: true, fill: 1.0 },
                             },
-                            value: plotData,
+                            value: data,
                             x: [
                                 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2,
                                 3, 4, 5,
@@ -150,6 +145,5 @@ const PlotComponent = ({ data }: Props) => {
         </>
 
     )
-}
+})
 
-export default memo(PlotComponent)

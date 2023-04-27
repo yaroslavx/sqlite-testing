@@ -15,7 +15,7 @@ struct Payload {
   data: String,
 }
 
-static mut RATE_FROM_FRONT: u64 = 1000;
+static mut RATE_FROM_FRONT: u64 = 500;
 
 #[tauri::command(rename_all = "snake_case")]
 fn change_rate(rate: u64) {

@@ -2,14 +2,29 @@ import { useContext, useLayoutEffect, useRef, useState } from 'react';
 import './Main.css'
 import { IconPlayFill, IconStopFill } from '../../assets/icons/PlayStop';
 import { PlotComponent } from '../Plot/PlotComponent';
-import { DataFromBackContext } from '../shared/DataContext';
-import { TDataContext } from '../types/@types.data';
+import { DataFromBackContext } from '../../shared/DataContext';
+import { TDataContext } from '../../types/@types.data';
 import { arrTo3DArray } from '../../utils/arrayUtils';
 import { detectErrorCoords } from '../../utils/errorDetection';
 import { RateInput } from '../RateInput/RateInput';
 import { outOfBorders } from '../../utils/outOfBorders';
+import { CurrentTime } from '../CurrentTime/CurrentTime';
+import { ErrorCoords } from '../ErrorCoords/ErrorCoords';
+import { OutOfBordersCoords } from '../OutOfBordersCoords/OutOfBordersCoords';
+import { relaunch } from '@tauri-apps/api/process';
+import { exit } from '@tauri-apps/api/process';
+import { useNavigate } from 'react-router-dom';
+
+const handleRelaunch = async () => {
+    await relaunch();
+}
+
+const handelExit = async () => {
+    await exit(1);
+}
 
 const Main = () => {
+    const navigate = useNavigate()
     const [play, setPlay] = useState(true)
     const errorDataRef = useRef<string[] | null>(null)
     const outOfBordersRef = useRef<{ min: string[]; max: string[]; } | null>(null)
@@ -43,6 +58,9 @@ const Main = () => {
         setSnapshotTime(currentTime)
     }
 
+
+
+
     return (
         <div className='container'>
             <div className='menu'>
@@ -59,17 +77,11 @@ const Main = () => {
                     }
                 </div>
                 <RateInput />
-                {play
-                    ? <div>
-                        {new Date(currentTime).toUTCString()}
-                    </div>
-                    : <div>
-                        Текущее время – {new Date(currentTime).toUTCString()}
-                        Время паузы – {new Date(snapshotTime).toUTCString()}
-                    </div>
-                }
-                {errorDataRef.current && <div>{errorDataRef.current.toString()}</div>}
-                {outOfBordersRef.current && <div>{outOfBordersRef.current.min.toString()} {outOfBordersRef.current.max.toString()}</div>}
+                <CurrentTime currentTime={currentTime} snapshotTime={snapshotTime} play={play} />
+                {errorDataRef.current && <ErrorCoords coords={errorDataRef.current} />}
+                {outOfBordersRef.current && <OutOfBordersCoords min={outOfBordersRef.current.min} max={outOfBordersRef.current.max} />}
+                <button onClick={handleRelaunch}>Restart</button>
+                <button onClick={handelExit}>Exit</button>
             </div>
             <PlotComponent data={(play) ? plotData : snapshotData} />
         </div>

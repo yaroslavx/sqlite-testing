@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Input from "./components/Input/Input";
 import Main from "./components/Main/Main";
-import { DataProvider } from "./components/shared/DataContext.js";
+import { DataProvider } from "./shared/DataContext.js";
 
 function App() {
   return (

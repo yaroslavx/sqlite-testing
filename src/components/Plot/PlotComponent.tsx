@@ -1,8 +1,8 @@
 import Plot from 'react-plotly.js';
 import { memo, useContext } from 'react';
 import { arrTo3DArray } from '../../utils/arrayUtils';
-import { DataFromBackContext } from '../shared/DataContext';
-import { TDataContext } from '../types/@types.data';
+import { DataFromBackContext } from '../../shared/DataContext';
+import { TDataContext } from '../../types/@types.data';
 
 type Props = {
     data?: number[]

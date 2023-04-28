@@ -2,8 +2,8 @@ import { FormEvent, useContext, useId, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen } from '@tauri-apps/api/event';
 import "./Input.css";
-import { TDataContext, IDataFromBack } from "../types/@types.data.js";
-import { DataFromBackContext } from "../shared/DataContext.js";
+import { TDataContext, IDataFromBack } from "../../types/@types.data.js";
+import { DataFromBackContext } from "../../shared/DataContext.js";
 import { useNavigate } from "react-router-dom";
 
 
@@ -28,9 +28,8 @@ const Input = () => {
         if (port === '') return
         setLoading(true)
         invoke('init_process', { port: port })
-        // для прода
         listen('data', (data: IDataFromBack) => {
-            // console.log(data)
+            console.log(data)
             if (data.payload) {
                 renderData(data.payload.data)
                 if (!navigated.current) {

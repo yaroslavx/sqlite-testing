@@ -6,7 +6,7 @@
 
 .menu {
   width: 290px;
-
+  scrollbar-gutter: stable;
   background-color: #f1f1f1;
   display: flex;
   flex-direction: column;

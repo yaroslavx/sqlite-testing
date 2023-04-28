@@ -80,8 +80,8 @@ const Main = () => {
                 <CurrentTime currentTime={currentTime} snapshotTime={snapshotTime} play={play} />
                 {errorDataRef.current && <ErrorCoords coords={errorDataRef.current} />}
                 {outOfBordersRef.current && <OutOfBordersCoords min={outOfBordersRef.current.min} max={outOfBordersRef.current.max} />}
-                <button onClick={handleRelaunch}>Restart</button>
-                <button onClick={handelExit}>Exit</button>
+                <button className='relaunch_button' onClick={handleRelaunch}>Перезапуск</button>
+                <button className='exit_button' onClick={handelExit}>Выход</button>
             </div>
             <PlotComponent data={(play) ? plotData : snapshotData} />
         </div>

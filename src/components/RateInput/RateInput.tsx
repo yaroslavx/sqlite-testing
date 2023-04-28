@@ -13,7 +13,7 @@ export const RateInput = () => {
         if (key == 'Enter' && rate != null) {
             // send rate to back
             if (typeof Number(rate) === 'number' && Number(rate) >= 1) {
-                invoke('change_rate', { rate: Math.floor(Number(rate) / 2) })
+                invoke('change_rate', { rate: Math.floor((Number(rate) / 4) * 3) })
             }
         }
     }

@@ -48,7 +48,7 @@ const Input = () => {
                 <button onClick={start} type="submit" className='create-button'>Подключиться</button>
             </form>
             {error && <div>Error</div>}
-            {loading && <div>Загрузка</div>}
+            {loading && <div className="input_loading"></div>}
         </div>
     );
 }

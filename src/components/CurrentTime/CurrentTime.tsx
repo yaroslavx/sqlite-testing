@@ -10,14 +10,16 @@ export const CurrentTime = ({ currentTime, snapshotTime, play }: CurrentTimeProp
     return (<div className="time_container">
         {play
             ? <div className="time_active">
-                Текущее время – {new Date(currentTime).toLocaleDateString()} {new Date(currentTime).toLocaleTimeString()}
+                <div className="currenttime">
+                    Текущее время: {new Date(currentTime).toLocaleDateString()} {new Date(currentTime).toLocaleTimeString()}
+                </div>
             </div>
             : <div className="time_paused">
                 <div className="currenttime">
-                    Текущее время – {new Date(currentTime).toLocaleDateString()} {new Date(currentTime).toLocaleTimeString()}
+                    Текущее время: {new Date(currentTime).toLocaleDateString()} {new Date(currentTime).toLocaleTimeString()}
                 </div>
                 <div className="snapshottime">
-                    Время паузы – {new Date(snapshotTime).toLocaleDateString()} {new Date(snapshotTime).toLocaleTimeString()}
+                    Время паузы: {new Date(snapshotTime).toLocaleDateString()} {new Date(snapshotTime).toLocaleTimeString()}
                 </div>
             </div>}
     </div>)

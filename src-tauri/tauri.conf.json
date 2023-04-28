@@ -71,7 +71,7 @@
         "height": 800,
         "width": 1250,
         "resizable": true,
-        "minHeight": 700,
+        "minHeight": 800,
         "minWidth": 1000,
         "title": "3D Receiver"
       }

@@ -1,3 +1,15 @@
 .outofborders_container {
-    border: 1px solid black
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.outofborders_min,
+.outofborders_max {
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
 }

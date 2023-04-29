@@ -52,11 +52,11 @@ fn init_process(port: String, window: Window) {
       port.get_mut()
             .write_all("<".as_bytes()).expect("Write failed!");
       port.read_line(&mut my_str);
-      unsafe{std::thread::sleep(Duration::from_millis(RATE_FROM_FRONT))};
       if my_str != "" {
         window.emit("data", Payload { data: my_str.clone().into() }).unwrap();
         writeln!(file, "createdAt: {:?},  data: {my_str}", now).expect("Ошибка при записи файла");
       }
+      unsafe{std::thread::sleep(Duration::from_millis(RATE_FROM_FRONT))};
     }
   });
 }

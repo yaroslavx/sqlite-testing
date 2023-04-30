@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useId, useRef, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen } from '@tauri-apps/api/event';
 import "./Input.css";

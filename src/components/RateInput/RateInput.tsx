@@ -18,10 +18,9 @@ export const RateInput = () => {
         }
     }
     return <div className='rate'>
-        <p>Частота опроса</p>
+        <p>Частота опроса, мс</p>
         <div>
             <input placeholder='1000' type='number' value={rate || ''} onChange={e => handleInput(e.target.value)} onKeyDown={e => handleSendRate(e.key)} />
-            <p>мс</p>
         </div>
     </div>
 }

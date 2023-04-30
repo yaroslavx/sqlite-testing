@@ -13,7 +13,7 @@ import { ErrorCoords } from '../ErrorCoords/ErrorCoords';
 import { OutOfBordersCoords } from '../OutOfBordersCoords/OutOfBordersCoords';
 import { relaunch } from '@tauri-apps/api/process';
 import { exit } from '@tauri-apps/api/process';
-import { useNavigate } from 'react-router-dom';
+import { BordersInput } from '../BordersInput/BordersInput';
 
 const handleRelaunch = async () => {
     await relaunch();
@@ -24,14 +24,14 @@ const handelExit = async () => {
 }
 
 const Main = () => {
-    const navigate = useNavigate()
     const [play, setPlay] = useState(true)
     const errorDataRef = useRef<string[] | null>(null)
     const outOfBordersRef = useRef<{ min: string[]; max: string[]; } | null>(null)
     const [snapshotData, setSnapshotData] = useState<number[]>()
     const [snapshotTime, setSnapshotTime] = useState(0)
 
-    console.log('render main')
+    const minBorderRef = useRef<number>(0)
+    const maxBorderRef = useRef<number>(1000)
 
     const { data, currentTime } = useContext(DataFromBackContext) as TDataContext
 
@@ -46,7 +46,7 @@ const Main = () => {
         if (plotData.length === 100) {
             const ThreeDArr = arrTo3DArray(plotData)
             errorDataRef.current = detectErrorCoords(ThreeDArr, 200)
-            outOfBordersRef.current = outOfBorders(ThreeDArr, 100, 700)
+            outOfBordersRef.current = outOfBorders(ThreeDArr, minBorderRef.current, maxBorderRef.current)
         }
 
     }, [data, play])
@@ -57,9 +57,6 @@ const Main = () => {
         setSnapshotData(plotData)
         setSnapshotTime(currentTime)
     }
-
-
-
 
     return (
         <div className='container'>
@@ -78,8 +75,9 @@ const Main = () => {
                 </div>
                 <RateInput />
                 <CurrentTime currentTime={currentTime} snapshotTime={snapshotTime} play={play} />
-                {errorDataRef.current && <ErrorCoords coords={errorDataRef.current} />}
+                <BordersInput minBorderRef={minBorderRef} maxBorderRef={maxBorderRef} />
                 {outOfBordersRef.current && <OutOfBordersCoords min={outOfBordersRef.current.min} max={outOfBordersRef.current.max} />}
+                {errorDataRef.current && <ErrorCoords coords={errorDataRef.current} />}
                 <button className='relaunch_button' onClick={handleRelaunch}>Перезапуск</button>
                 <button className='exit_button' onClick={handelExit}>Выход</button>
             </div>

@@ -2,8 +2,8 @@ import { strToArr, arrTo3DArray } from './arrayUtils';
 
 export const outOfBorders = (
   arr: number[][][] | null,
-  min: number,
-  max: number
+  min: number = 0,
+  max: number = 1000
 ): { min: string[]; max: string[] } | null => {
   if (!arr) return null;
   const res: { min: string[]; max: string[] } = { min: [], max: [] };

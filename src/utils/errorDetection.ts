@@ -27,7 +27,9 @@ export const detectErrorCoords = (
             arr[x][y][z] - (arr[x][y][z - 1] ? arr[x][y][z - 1] : arr[x][y][z])
           ) > diff
         ) {
-          errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+          errorCoordsArr.push(
+            `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+          );
         } else if (x === 0) {
           if (y === 0) {
             if (z === 0) {
@@ -37,7 +39,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 2 точка
@@ -46,7 +50,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 1 грань
@@ -56,7 +62,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           } else if (y === arr[x].length - 1) {
@@ -67,7 +75,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 4 точка
@@ -76,7 +86,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 2 грань
@@ -86,7 +98,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           } else if (y > 0 && y < arr[x].length - 1) {
@@ -98,7 +112,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 4 грань
@@ -108,7 +124,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 1 поверхность
@@ -119,7 +137,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           }
@@ -132,7 +152,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 6 точка
@@ -141,7 +163,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 5 грань
@@ -151,7 +175,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           } else if (y === arr[x].length - 1) {
@@ -162,7 +188,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 8 точка
@@ -171,7 +199,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 6 грань
@@ -181,7 +211,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           } else if (y > 0 && y < arr[x].length - 1) {
@@ -193,7 +225,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 8 грань
@@ -203,7 +237,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 2 поверхность
@@ -214,7 +250,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           }
@@ -228,7 +266,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 10 грань
@@ -238,7 +278,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y + 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 3 поверхность
@@ -249,7 +291,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           }
@@ -263,7 +307,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z === arr[x][y].length - 1) {
               // 12 грань
@@ -273,7 +319,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             } else if (z > 0 && z < arr[x][y].length - 1) {
               // 4 поверхность
@@ -284,7 +332,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           }
@@ -299,7 +349,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z + 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           }
@@ -314,7 +366,9 @@ export const detectErrorCoords = (
                 Math.abs(arr[x][y][z] - arr[x][y - 1][z]) > diff &&
                 Math.abs(arr[x][y][z] - arr[x][y][z - 1]) > diff
               ) {
-                errorCoordsArr.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+                errorCoordsArr.push(
+                  `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val: ${arr[x][y][z]}`
+                );
               }
             }
           }

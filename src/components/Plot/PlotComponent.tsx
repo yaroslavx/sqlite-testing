@@ -55,7 +55,7 @@ export const PlotComponent = memo(({ data, cmin, cmax }: Props) => {
                                 title: 'Магн. индукция, Гс',
 
                             },
-
+                            hoverinfo: 'skip',
                             colorscale: [
                                 [0, 'rgb(49,54,149)'],
                                 [0.1, 'rgb(69,117,180)'],

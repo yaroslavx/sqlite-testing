@@ -12,9 +12,13 @@ export const outOfBorders = (
     for (let y = 0; y < arr[x].length; y++) {
       for (let z = 0; z < arr[x][y].length; z++) {
         if (arr[x][y][z] < min) {
-          res.min.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+          res.min.push(
+            `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val:${arr[x][y][z]}`
+          );
         } else if (arr[x][y][z] > max) {
-          res.max.push(`x:${z + 1}, y:${y + 1}, z:${3 - x + 1}`);
+          res.max.push(
+            `x:${z + 1}, y:${y + 1}, z:${3 - x + 1} val:${arr[x][y][z]}`
+          );
         }
       }
     }

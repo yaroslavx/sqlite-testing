@@ -52,7 +52,7 @@ export const PlotComponent = memo(({ data, cmin, cmax }: Props) => {
                             colorbar: {
                                 dtick: 25,
                                 len: 1,
-                                title: 'Напряженность, B',
+                                title: 'Магн. индукция, Гс',
 
                             },
 
@@ -73,13 +73,13 @@ export const PlotComponent = memo(({ data, cmin, cmax }: Props) => {
                             cmax: cmax,
                             reversescale: false,
                             opacityscale: [
-                                [0.0, 0.1],
-                                [0.2, 0.2],
-                                [0.35, 0.35],
+                                [0.0, 0.5],
+                                [0.2, 0.5],
+                                [0.35, 0.5],
                                 [0.5, 0.5],
-                                [0.65, 0.65],
-                                [0.8, 0.8],
-                                [1.0, 1.0],
+                                [0.65, 0.5],
+                                [0.8, 0.5],
+                                [1.0, 0.5],
                             ],
                             opacity: 1,
                             surface: { show: true, fill: 1.0, count: 64 },

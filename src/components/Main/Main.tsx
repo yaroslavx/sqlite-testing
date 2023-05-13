@@ -46,7 +46,7 @@ const Main = () => {
         }
         if (plotData.length === 100) {
             const ThreeDArr = arrTo3DArray(plotData)
-            errorDataRef.current = detectErrorCoords(ThreeDArr, 200)
+            errorDataRef.current = detectErrorCoords(ThreeDArr, 500)
             outOfBordersRef.current = outOfBorders(ThreeDArr, minBorderRef.current, maxBorderRef.current)
         }
 

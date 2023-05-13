@@ -6,6 +6,8 @@ import { TDataContext } from '../../types/@types.data';
 
 type Props = {
     data?: number[]
+    cmin: number
+    cmax: number
 }
 
 const layout = {
@@ -14,8 +16,8 @@ const layout = {
     },
     scene: {
         aspectratio: {
-            x: 2.4,
-            y: 1.2,
+            x: 1.5,
+            y: 1.5,
             z: 1.2,
         },
         xaxis: { nticks: 5 },
@@ -24,20 +26,17 @@ const layout = {
         camera: {
             projection: { type: 'orthographic' },
             eye: {
-                x: 3.3,
-                y: 2.2,
-                z: 0.4,
+                x: -3,
+                y: -2.2,
+                z: 1,
             },
         },
     },
-
 }
 
 
-export const PlotComponent = memo(({ data }: Props) => {
+export const PlotComponent = memo(({ data, cmin, cmax }: Props) => {
     console.log('render plot')
-
-    console.log(data)
 
     return (
         <>
@@ -51,10 +50,12 @@ export const PlotComponent = memo(({ data }: Props) => {
                                 facenormalsepsilon: 0,
                             },
                             colorbar: {
-                                dtick: 100,
+                                dtick: 25,
                                 len: 1,
-                                title: 'Напряженность, B'
+                                title: 'Напряженность, B',
+
                             },
+
                             colorscale: [
                                 [0, 'rgb(49,54,149)'],
                                 [0.1, 'rgb(69,117,180)'],
@@ -67,6 +68,9 @@ export const PlotComponent = memo(({ data }: Props) => {
                                 [0.8, 'rgb(215,48,39)'],
                                 [1, 'rgb(165,0,38)'],
                             ],
+                            // @ts-ignore
+                            cmin: cmin,
+                            cmax: cmax,
                             reversescale: false,
                             opacityscale: [
                                 [0.0, 0.1],
@@ -92,26 +96,22 @@ export const PlotComponent = memo(({ data }: Props) => {
                             },
                             value: data,
                             x: [
-                                5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1,
+                                1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5,
 
-                                5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1,
+                                1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5,
 
-                                5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1,
+                                1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5,
 
-                                5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1,
+                                1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5,
                             ],
                             y: [
-                                1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5,
-                                5, 5, 5,
+                                5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1,
 
-                                1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5,
-                                5, 5, 5,
+                                5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1,
 
-                                1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5,
-                                5, 5, 5,
+                                5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1,
 
-                                1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5,
-                                5, 5, 5,
+                                5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1,
                             ],
                             z: [
                                 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -136,6 +136,8 @@ export const PlotComponent = memo(({ data }: Props) => {
                         displayModeBar: false,
                         responsive: true,
                     }}
+
+
                 />
             </>}
         </>

@@ -44,10 +44,10 @@ export const arrTo3DArray = (arr: number[] | null): number[][][] | null => {
     [[], [], [], [], []],
   ];
   let i = 0;
-  for (let x = 0; x < 4; x++) {
+  for (let z = 0; z < 4; z++) {
     for (let y = 0; y < 5; y++) {
-      for (let z = 0; z < 4; z++) {
-        resArr[x][y].push(arr[i++]);
+      for (let x = 0; x < 5; x++) {
+        resArr[z][4 - y].push(arr[i++]);
       }
     }
   }

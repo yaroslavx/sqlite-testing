@@ -35,7 +35,8 @@ const Main = () => {
 
     const { data, currentTime } = useContext(DataFromBackContext) as TDataContext
 
-    const plotData = data[data.length - 1].split(' ').map(x => parseInt(x, 10)).filter(x => x)
+    let plotData = data[data.length - 1].split(' ').map(x => parseInt(x, 10)).filter(x => x)
+    plotData = [...plotData.slice(0, 53), plotData[52], ...plotData.slice(54, 92), plotData[91], ...plotData.slice(93)]
     useLayoutEffect(() => {
         if (plotData.length < 100) {
             const diff = 100 - plotData.length
@@ -81,7 +82,7 @@ const Main = () => {
                 <button className='relaunch_button' onClick={handleRelaunch}>Перезапуск</button>
                 <button className='exit_button' onClick={handelExit}>Выход</button>
             </div>
-            <PlotComponent data={(play) ? plotData : snapshotData} />
+            <PlotComponent data={(play) ? plotData : snapshotData} cmin={minBorderRef.current} cmax={maxBorderRef.current} />
         </div>
     );
 };
